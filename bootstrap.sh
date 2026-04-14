@@ -40,4 +40,9 @@ uwsgi --uid keystone --ini /keystone-uwsgi-public.ini &
 P1=$!
 uwsgi --uid keystone --ini /keystone-uwsgi-admin.ini &
 P2=$!
+
+# Wait for Keystone to be ready, then create test users
+sleep 3
+/setup-test-users.sh &
+
 wait ${P1} ${P2}
